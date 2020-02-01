@@ -15,7 +15,6 @@ ATrashFurnance::ATrashFurnance()
 	RootComponent = SphereComp;
 
 	ParticleEffect = CreateDefaultSubobject<UParticleSystem>(TEXT("Furnace Effect"));
-
 }
 
 // Called when the game starts or when spawned
