@@ -118,16 +118,13 @@ void APlayerCharacter::GrabObject()
 
 		if (HitActor)
 		{
-			//UE_LOG(LogTemp, Warning, TEXT("hello"));
 			//get mesh
 			UStaticMeshComponent* MeshHit = Cast<UStaticMeshComponent>(HitActor->GetComponentByClass(UStaticMeshComponent::StaticClass()));
 
 			
 
-			//	UE_LOG(LogTemp, Warning, TEXT("hi"));
 			if (MeshHit)
 			{
-			//	UE_LOG(LogTemp, Warning, TEXT("yo"));
 
 				//make sure its simulating physics
 				if (MeshHit->IsSimulatingPhysics())
@@ -151,7 +148,6 @@ void APlayerCharacter::GrabObject()
 
 void APlayerCharacter::ReleaseObject()
 {
-	//TODO: if an object is being held drop the object
 	if (bObjectInHand)
 	{
 		PhysicsHandleComponent->ReleaseComponent();

@@ -12,6 +12,8 @@ ATrashActor::ATrashActor()
 	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	RootComponent = MeshComp;
 
+	MeshComp->SetSimulatePhysics(true);
+
 }
 
 // Called when the game starts or when spawned
