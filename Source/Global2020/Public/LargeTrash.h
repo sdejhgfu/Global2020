@@ -4,16 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "TrashActor.h"
-#include "SmallTrash.generated.h"
+#include "LargeTrash.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class GLOBAL2020_API ASmallTrash : public ATrashActor
+class GLOBAL2020_API ALargeTrash : public ATrashActor
 {
 	GENERATED_BODY()
 
-
-		ASmallTrash();
+		ALargeTrash();
 };

@@ -1,10 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SmallTrash.h"
+#include "MediumTrash.h"
 
-ASmallTrash::ASmallTrash()
+AMediumTrash::AMediumTrash()
 {
-
-	DamageAmount = 5.f;
+	DamageAmount = 7.5f;
 }

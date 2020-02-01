@@ -24,6 +24,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* MeshComp;
 
+	/*Doing Dmg is a positve value Healing is a negative value*/
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Trash", meta = (ClampMin = 0.f))
+	float DamageAmount;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
