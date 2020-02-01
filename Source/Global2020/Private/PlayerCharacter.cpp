@@ -3,11 +3,14 @@
 
 #include "PlayerCharacter.h"
 #include "Camera/CameraComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/SceneComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
-
+#include "DrawDebugHelpers.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -19,8 +22,14 @@ APlayerCharacter::APlayerCharacter()
 	SpringArmComp->SetupAttachment(RootComponent);
 	SpringArmComp->bUsePawnControlRotation = true;
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
-	Camera->SetupAttachment(RootComponent);
+	Camera->SetupAttachment(SpringArmComp);
+	
+	PhysicsHandleComponent = CreateDefaultSubobject<UPhysicsHandleComponent>("Physics Handle");
 
+	GrabHoldLocation = CreateDefaultSubobject<USceneComponent>("Held Object Location");
+	GrabHoldLocation->SetupAttachment(Camera);
+
+		
 }
 
 #pragma region Begin Play/Tick
@@ -36,6 +45,10 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	PhysicsHandleComponent->SetTargetLocation(GrabHoldLocation->GetComponentLocation());
+
+	
 
 }
 
@@ -54,6 +67,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAction("Grab", IE_Pressed, this, &APlayerCharacter::GrabObject);
 	PlayerInputComponent->BindAction("Grab", IE_Released, this, &APlayerCharacter::ReleaseObject);
 
+	
 }
 
 #pragma endregion
@@ -63,36 +77,30 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void APlayerCharacter::GrabObject()
 {
 	//TODO: Add functionality to grab objects by raycasting out from the camera forward vector
-}
-
-void APlayerCharacter::ReleaseObject()
-{
-	//TODO: if an object is being held drop the object
-	if (bObjectInHand)
-	{
-
-
-		bObjectInHand = false;
-	}
-
-}
-
-#pragma endregion
-
-
-void APlayerCharacter::TracingFromCamera()
-{
 	//trace from pawn eyes to crosshair
-	FVector EyeLocation;
-	FRotator EyeRotation;
-	FVector ShotDirection;
+	FVector PlayerViewPointLocation;
+	FRotator PlayerViewPointRotation;
 
-	FVector TraceEnd = EyeLocation + GrabRange;
+	
+	GetController()->GetPlayerViewPoint(
+		OUT PlayerViewPointLocation,
+		OUT PlayerViewPointRotation
+	);
 
 
-	GetActorEyesViewPoint(EyeLocation, EyeRotation);
-	ShotDirection = EyeRotation.Vector();
+	FVector TraceEnd = PlayerViewPointLocation + (PlayerViewPointRotation.Vector() * GrabRange);
 
+	
+	DrawDebugLine(
+		GetWorld(),
+		PlayerViewPointLocation,
+		TraceEnd,
+		FColor(255, 0, 0),
+		false,
+		1.f,
+		0.f,
+		10.f
+	);
 
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
@@ -101,9 +109,62 @@ void APlayerCharacter::TracingFromCamera()
 	FHitResult Hit;
 
 	//check against only the visible channel
-	if (GetWorld()->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, ECollisionChannel::ECC_Visibility, QueryParams))
+	if (GetWorld()->LineTraceSingleByChannel(Hit, PlayerViewPointLocation, TraceEnd, ECollisionChannel::ECC_Visibility, QueryParams))
 	{
-		AActor* HitActor = Hit.GetActor();
 		
+
+		//get actor hit
+		AActor* HitActor = Hit.GetActor();
+
+		if (HitActor)
+		{
+			//UE_LOG(LogTemp, Warning, TEXT("hello"));
+			//get mesh
+			UStaticMeshComponent* MeshHit = Cast<UStaticMeshComponent>(HitActor->GetComponentByClass(UStaticMeshComponent::StaticClass()));
+
+			
+
+			//	UE_LOG(LogTemp, Warning, TEXT("hi"));
+			if (MeshHit)
+			{
+			//	UE_LOG(LogTemp, Warning, TEXT("yo"));
+
+				//make sure its simulating physics
+				if (MeshHit->IsSimulatingPhysics())
+				{
+					PhysicsHandleComponent->GrabComponent(MeshHit, NAME_None, Hit.Location, true);
+
+					bObjectInHand = true;
+
+
+					MeshHit->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Ignore);
+
+					MeshHit->SetAngularDamping(AngularDampWhenObjectHeld);
+
+					HeldObject = MeshHit;
+				}
+			}
+
+		}
 	}
 }
+
+void APlayerCharacter::ReleaseObject()
+{
+	//TODO: if an object is being held drop the object
+	if (bObjectInHand)
+	{
+		PhysicsHandleComponent->ReleaseComponent();
+
+		bObjectInHand = false;
+
+		HeldObject->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Block);
+	
+		HeldObject->SetAngularDamping(0);
+
+		HeldObject = nullptr;
+	}
+
+}
+
+#pragma endregion
