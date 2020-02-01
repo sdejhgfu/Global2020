@@ -27,7 +27,12 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		UCameraComponent* Camera;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+		float GrabRange = 300;
+
 	bool bObjectInHand;
+
+	void TracingFromCamera();
 
 	void GrabObject();
 	void ReleaseObject();
