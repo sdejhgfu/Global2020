@@ -27,6 +27,11 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		UCameraComponent* Camera;
 
+	bool bObjectInHand;
+
+	void GrabObject();
+	void ReleaseObject();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
