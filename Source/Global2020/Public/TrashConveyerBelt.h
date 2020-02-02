@@ -25,7 +25,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Spawner")
 	USceneComponent* SpawnPoint;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Spawner")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Spawner")
 	float TimeBetweenSpawning = .2f;
 
 	FTimerHandle TimerHandle_SpawnerTimer;
