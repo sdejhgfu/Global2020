@@ -7,7 +7,7 @@
 #include "TrashActor.generated.h"
 
 class UStaticMeshComponent;
-
+//UEnum EGarbageType;
 UCLASS()
 class GLOBAL2020_API ATrashActor : public AActor
 {
@@ -28,8 +28,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Trash", meta = (ClampMin = 0.f))
 	float DamageAmount;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Trash")
-	enum EGarbageType GarbageType;
+//	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Trash")
+//	EGarbageType GarbageType;
 
 public:	
 	// Called every frame
