@@ -5,8 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
+class UTrashGrabber;
 class UCameraComponent;
+class UPhysicsHandleComponent;
 class USpringArmComponent;
+class USceneComponent;
 
 UCLASS()
 class GLOBAL2020_API APlayerCharacter : public ACharacter
@@ -22,10 +25,30 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-		USpringArmComponent* SpringArmComp;
+	USpringArmComponent* SpringArmComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-		UCameraComponent* Camera;
+	UCameraComponent* Camera;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	float GrabRange = 300;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	UPhysicsHandleComponent* PhysicsHandleComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components")
+	USceneComponent* GrabHoldLocation;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Components", meta = (ClampMin = 0.f))
+	float AngularDampWhenObjectHeld = 10;
+
+	bool bObjectInHand;
+
+	void GrabObject();
+
+	void ReleaseObject();
+
+	UStaticMeshComponent* HeldObject;
 
 public:	
 	// Called every frame
