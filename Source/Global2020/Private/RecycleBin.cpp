@@ -6,6 +6,7 @@
 #include "TrashActor.h"
 #include "PlayerCharacter.h"
 #include "GameFramework/PlayerController.h"
+#include "TrashPlayerState.h"
 
 // Sets default values
 ARecycleBin::ARecycleBin()
@@ -69,6 +70,16 @@ void ARecycleBin::NotifyActorBeginOverlap(AActor* OtherActor)
 			//take negative dmg val to heal the player
 			if (ThePlayer)
 			ThePlayer->HurtThePlayer(-TrashObject->GetDamageValue());
+			
+			ATrashPlayerState* TGS = Cast<ATrashPlayerState>(GetWorld()->GetGameState());
+			//add score for the player upon getting one correct
+			if (TGS)
+			{
+				TGS->AddScore(TrashObject->GetScoreValue());
+				UE_LOG(LogTemp, Warning, TEXT("Score Value now: %i"), TGS->GetTotalScore());
+			}
+
+
 			UE_LOG(LogTemp, Warning, TEXT("Healed Player"));
 		}
 		else

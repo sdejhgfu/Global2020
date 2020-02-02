@@ -26,7 +26,7 @@ void ATrashConveyerBelt::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GetWorldTimerManager().SetTimer(TimerHandle_SpawnerTimer, this, &ATrashConveyerBelt::SpawnTrash, TimeBetweenSpawning,false,0);
+	GetWorldTimerManager().SetTimer(TimerHandle_SpawnerTimer, this, &ATrashConveyerBelt::SpawnTrash, TimeBetweenSpawning,true,0);
 	
 }
 
@@ -46,6 +46,8 @@ void ATrashConveyerBelt::SpawnTrash()
 
 	FVector SpawnLocation = SpawnPoint->GetComponentLocation();
 
-	ATrashActor* TrashToSpawn = GetWorld()->SpawnActor<ATrashActor>(SpawnableActors[0], SpawnLocation,Rotator,SpawnParams);
+	int SpawnNum = FMath::RoundToInt(FMath::RandRange(0, SpawnableActors.Num()));
+
+	ATrashActor* TrashToSpawn = GetWorld()->SpawnActor<ATrashActor>(SpawnableActors[SpawnNum], SpawnLocation,Rotator,SpawnParams);
 
 }

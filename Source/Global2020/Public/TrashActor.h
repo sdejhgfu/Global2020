@@ -31,14 +31,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly,Category = "Trash")
 	EGarbageType GarbageType;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Trash")
+	float ScoreValue = 5;
+
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-
 	EGarbageType GetGarbageType() const;
 
 	float GetDamageValue() const;
+
+	float GetScoreValue() const;
 
 };

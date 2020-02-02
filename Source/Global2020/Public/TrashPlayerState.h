@@ -14,7 +14,10 @@ class GLOBAL2020_API ATrashPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 
+
+public:
 		UFUNCTION(BlueprintCallable, Category = "Score")
 		void AddScore(int AddedScore);
 	
+		int GetTotalScore() const;
 };

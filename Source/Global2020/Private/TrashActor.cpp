@@ -38,3 +38,8 @@ float ATrashActor::GetDamageValue() const
 {
 	return DamageAmount;
 }
+
+float ATrashActor::GetScoreValue() const
+{
+	return ScoreValue;
+}

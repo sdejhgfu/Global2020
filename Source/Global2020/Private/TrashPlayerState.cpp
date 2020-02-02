@@ -7,3 +7,8 @@ void ATrashPlayerState::AddScore(int AddedScore)
 {
 	Score += AddedScore;
 }
+
+int ATrashPlayerState::GetTotalScore() const
+{
+	return Score;
+}
