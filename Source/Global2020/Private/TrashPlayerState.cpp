@@ -23,3 +23,8 @@ void ATrashPlayerState::SetPlayerCharacter(APlayerCharacter * ThePlayerCharacter
 {
 	PlayerCharacter = ThePlayerCharacter;
 }
+
+void ATrashPlayerState::ResetScoreValue()
+{
+	Score = 0;
+}

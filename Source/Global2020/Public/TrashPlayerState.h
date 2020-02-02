@@ -28,4 +28,7 @@ public:
 
 		UFUNCTION(BlueprintCallable, Category = "Score")
 		void SetPlayerCharacter(APlayerCharacter* ThePlayerCharacter);
+
+		UFUNCTION(BlueprintCallable, Category = "Score")
+		void ResetScoreValue();
 };
