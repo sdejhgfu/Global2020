@@ -41,12 +41,13 @@ void ATrashConveyerBelt::SpawnTrash()
 {
 	//rando pick obj to spawn
 	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 	
 	FRotator Rotator = FRotator::ZeroRotator;
 
 	FVector SpawnLocation = SpawnPoint->GetComponentLocation();
 
-	int SpawnNum = FMath::RoundToInt(FMath::RandRange(0, SpawnableActors.Num()));
+	int SpawnNum = FMath::RoundToInt(FMath::RandRange(0, SpawnableActors.Num() - 1));
 
 	ATrashActor* TrashToSpawn = GetWorld()->SpawnActor<ATrashActor>(SpawnableActors[SpawnNum], SpawnLocation,Rotator,SpawnParams);
 
