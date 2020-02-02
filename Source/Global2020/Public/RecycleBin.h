@@ -19,7 +19,7 @@ UCLASS()
 class GLOBAL2020_API ARecycleBin : public AActor
 {
 	GENERATED_BODY()
-	
+	//
 public:	
 	// Sets default values for this actor's properties
 	ARecycleBin();
