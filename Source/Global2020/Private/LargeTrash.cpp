@@ -2,6 +2,7 @@
 
 
 #include "LargeTrash.h"
+#include "RecycleBin.h"
 
 ALargeTrash::ALargeTrash()
 {

@@ -9,10 +9,10 @@
 UENUM(BlueprintType)		//"BlueprintType" is essential to include
 enum class EGarbageType : uint8
 {
-	VE_Carboard 	UMETA(DisplayName = "Cardboard"),
-	VE_Plastic 	UMETA(DisplayName = "Plastic"),
-	VE_Metal	UMETA(DisplayName = "Metal"),
-	VE_Trash	UMETA(DisplayName = "Trash")
+	Carboard,
+	Plastic,
+	Metal,
+	Trash
 };
 
 UCLASS()

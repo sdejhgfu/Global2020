@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "RecycleBin.h"
 #include "TrashActor.generated.h"
 
 class UStaticMeshComponent;
 //UEnum EGarbageType;
+>>>>>>> SvenBranch
 UCLASS()
 class GLOBAL2020_API ATrashActor : public AActor
 {
@@ -30,6 +32,15 @@ protected:
 
 //	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Trash")
 //	EGarbageType GarbageType;
+	/*Garbage Type, 0 = Carboard, 1 = Metal, 2 = Plastic, 3 = Trash*/
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Trash")
+	//int GarbageType;
+
+<<<<<<< HEAD
+=======
+	UPROPERTY(EditDefaultsOnly,Category = "Trash")
+	EGarbageType GarbageType;
+>>>>>>> SvenBranch
 
 public:	
 	// Called every frame
