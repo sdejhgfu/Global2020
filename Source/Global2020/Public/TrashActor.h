@@ -8,9 +8,6 @@
 #include "TrashActor.generated.h"
 
 class UStaticMeshComponent;
-<<<<<<< HEAD
-=======
->>>>>>> SvenBranch
 UCLASS()
 class GLOBAL2020_API ATrashActor : public AActor
 {
@@ -30,15 +27,10 @@ protected:
 	/*Doing Dmg is a positve value Healing is a negative value*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Trash", meta = (ClampMin = 0.f))
 	float DamageAmount;
-	/*Garbage Type, 0 = Carboard, 1 = Metal, 2 = Plastic, 3 = Trash*/
-	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Trash")
-	//int GarbageType;
 
-<<<<<<< HEAD
-=======
 	UPROPERTY(EditDefaultsOnly,Category = "Trash")
 	EGarbageType GarbageType;
->>>>>>> SvenBranch
+
 
 public:	
 	// Called every frame
