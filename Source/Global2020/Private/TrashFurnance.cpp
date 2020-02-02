@@ -5,6 +5,11 @@
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Particles/ParticleSystem.h"
+#include "TrashActor.h"
+#include "PlayerCharacter.h"
+#include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h" 
+
 
 // Sets default values
 ATrashFurnance::ATrashFurnance()
@@ -17,6 +22,7 @@ ATrashFurnance::ATrashFurnance()
 
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Comp"));
 	SphereComp->SetupAttachment(MeshComp);
+	SphereComp->SetGenerateOverlapEvents(true);
 
 	ParticleEffect = CreateDefaultSubobject<UParticleSystem>(TEXT("Furnace Effect"));
 	
@@ -36,3 +42,44 @@ void ATrashFurnance::Tick(float DeltaTime)
 
 }
 
+void ATrashFurnance::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+	Super::NotifyActorBeginOverlap(OtherActor);
+
+
+	ATrashActor* TrashObject = Cast<ATrashActor>(OtherActor);
+
+	APlayerCharacter* ThePlayer = nullptr;
+
+	//get the player
+	for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+	{
+
+
+		ThePlayer = Cast<APlayerCharacter>(It->Get()->GetCharacter());
+		if (ThePlayer)
+		{
+			continue;
+		}
+		else
+		{
+		}
+	}
+
+	//check if its a trash object
+	if (TrashObject)
+	{
+		//add normal damage to player to hurt them.
+		if (ThePlayer)
+			ThePlayer->HurtThePlayer(TrashObject->GetDamageValue());
+		UE_LOG(LogTemp, Warning, TEXT("Damaged Player"));
+
+
+		
+
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleEffect, SphereComp->GetComponentTransform());
+		
+
+		TrashObject->Destroy();
+	}
+}

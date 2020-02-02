@@ -30,6 +30,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Trash")
 		UStaticMeshComponent* MeshComp;
 
+
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
