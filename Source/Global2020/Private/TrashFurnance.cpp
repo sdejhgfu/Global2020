@@ -3,6 +3,7 @@
 
 #include "TrashFurnance.h"
 #include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Particles/ParticleSystem.h"
 
 // Sets default values
@@ -11,10 +12,14 @@ ATrashFurnance::ATrashFurnance()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	MeshComp = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh Comp"));
+	RootComponent = MeshComp;
+
 	SphereComp = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Comp"));
-	RootComponent = SphereComp;
+	SphereComp->SetupAttachment(MeshComp);
 
 	ParticleEffect = CreateDefaultSubobject<UParticleSystem>(TEXT("Furnace Effect"));
+	
 }
 
 // Called when the game starts or when spawned

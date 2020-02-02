@@ -7,6 +7,7 @@
 #include "TrashFurnance.generated.h"
 class USphereComponent;
 class UParticleSystem;
+class UStaticMeshComponent;
 UCLASS()
 class GLOBAL2020_API ATrashFurnance : public AActor
 {
@@ -25,6 +26,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Trash")
 	UParticleSystem* ParticleEffect;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Trash")
+		UStaticMeshComponent* MeshComp;
 
 public:	
 	// Called every frame
