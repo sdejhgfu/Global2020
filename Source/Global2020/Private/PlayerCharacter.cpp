@@ -5,7 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InputComponent.h"
-#include "PhysicsEngine/PhysicsHandleComponent.h"
+#include "Runtime/Engine/Classes/PhysicsEngine/PhysicsHandleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SceneComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -91,16 +91,16 @@ void APlayerCharacter::GrabObject()
 	FVector TraceEnd = PlayerViewPointLocation + (PlayerViewPointRotation.Vector() * GrabRange);
 
 	
-	DrawDebugLine(
-		GetWorld(),
-		PlayerViewPointLocation,
-		TraceEnd,
-		FColor(255, 0, 0),
-		false,
-		1.f,
-		0.f,
-		10.f
-	);
+	//DrawDebugLine(
+	//	GetWorld(),
+	//	PlayerViewPointLocation,
+	//	TraceEnd,
+	//	FColor(255, 0, 0),
+	//	false,
+	//	1.f,
+	//	0.f,
+	//	10.f
+	//);
 
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
@@ -129,7 +129,7 @@ void APlayerCharacter::GrabObject()
 				//make sure its simulating physics
 				if (MeshHit->IsSimulatingPhysics())
 				{
-					PhysicsHandleComponent->GrabComponent(MeshHit, NAME_None, Hit.Location, true);
+					PhysicsHandleComponent->GrabComponentAtLocation(MeshHit, NAME_None, Hit.Location);
 
 					bObjectInHand = true;
 
@@ -164,3 +164,4 @@ void APlayerCharacter::ReleaseObject()
 }
 
 #pragma endregion
+
