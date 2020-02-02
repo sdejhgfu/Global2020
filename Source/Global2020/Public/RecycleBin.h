@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "RecycleBin.generated.h"
 
+class USphereComponent;
+
 UENUM(BlueprintType)		//"BlueprintType" is essential to include
 enum class EGarbageType : uint8
 {
@@ -24,12 +26,17 @@ public:
 	// Sets default values for this actor's properties
 	ARecycleBin();
 
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Trash")
 	EGarbageType RecycleGarbageType;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Trash")
+	USphereComponent* SphereComp;
 
 public:	
 	// Called every frame

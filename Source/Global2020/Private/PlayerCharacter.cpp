@@ -152,7 +152,7 @@ void APlayerCharacter::GrabObject()
 
 void APlayerCharacter::ReleaseObject()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Also Called"));
+//	UE_LOG(LogTemp, Warning, TEXT("Also Called"));
 
 	if (bObjectInHand)
 	{

@@ -50,8 +50,6 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Trash")
 	void ReleaseObject();
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
-	void HurtThePlayer(float DamageTakenValue);
 
 	UStaticMeshComponent* HeldObject;
 
@@ -62,4 +60,6 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+	void HurtThePlayer(float DamageTakenValue);
 };

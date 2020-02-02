@@ -29,3 +29,12 @@ void ATrashActor::Tick(float DeltaTime)
 
 }
 
+EGarbageType ATrashActor::GetGarbageType() const
+{
+	return GarbageType;
+}
+
+float ATrashActor::GetDamageValue() const
+{
+	return DamageAmount;
+}
