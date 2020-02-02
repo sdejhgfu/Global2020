@@ -64,8 +64,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("LookUp", this, &APlayerCharacter::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookRight", this, &APlayerCharacter::AddControllerYawInput);
 
-	PlayerInputComponent->BindAction("Grab", IE_Pressed, this, &APlayerCharacter::GrabObject);
-	PlayerInputComponent->BindAction("Grab", IE_Released, this, &APlayerCharacter::ReleaseObject);
+	//PlayerInputComponent->BindAction("Grab", IE_Pressed, this, &APlayerCharacter::GrabObject);
+	//PlayerInputComponent->BindAction("Grab", IE_Released, this, &APlayerCharacter::ReleaseObject);
 
 	
 }
@@ -76,8 +76,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::GrabObject()
 {
-	//TODO: Add functionality to grab objects by raycasting out from the camera forward vector
-	//trace from pawn eyes to crosshair
+	//UE_LOG(LogTemp, Warning, TEXT("Called"));
+
 	FVector PlayerViewPointLocation;
 	FRotator PlayerViewPointRotation;
 
@@ -118,6 +118,7 @@ void APlayerCharacter::GrabObject()
 
 		if (HitActor)
 		{
+			//UE_LOG(LogTemp, Warning, TEXT("hi"));
 			//get mesh
 			UStaticMeshComponent* MeshHit = Cast<UStaticMeshComponent>(HitActor->GetComponentByClass(UStaticMeshComponent::StaticClass()));
 
@@ -125,10 +126,13 @@ void APlayerCharacter::GrabObject()
 
 			if (MeshHit)
 			{
+				//UE_LOG(LogTemp, Warning, TEXT("hello"));
 
 				//make sure its simulating physics
 				if (MeshHit->IsSimulatingPhysics())
 				{
+					//UE_LOG(LogTemp, Warning, TEXT("Yo"));
+
 					PhysicsHandleComponent->GrabComponentAtLocation(MeshHit, NAME_None, Hit.Location);
 
 					bObjectInHand = true;
@@ -148,6 +152,8 @@ void APlayerCharacter::GrabObject()
 
 void APlayerCharacter::ReleaseObject()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Also Called"));
+
 	if (bObjectInHand)
 	{
 		PhysicsHandleComponent->ReleaseComponent();

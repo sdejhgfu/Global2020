@@ -14,7 +14,6 @@ ATrashActor::ATrashActor()
 	RootComponent = MeshComp;
 
 	MeshComp->SetSimulatePhysics(true);
-
 }
 
 // Called when the game starts or when spawned
