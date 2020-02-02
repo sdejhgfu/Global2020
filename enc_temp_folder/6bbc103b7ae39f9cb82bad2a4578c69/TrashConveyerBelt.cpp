@@ -17,7 +17,7 @@ ATrashConveyerBelt::ATrashConveyerBelt()
 
 	if (RootComponent)
 	SpawnPoint->SetupAttachment(RootComponent);
-	//
+	
 
 }
 
