@@ -44,9 +44,14 @@ protected:
 
 	bool bObjectInHand;
 
+	UFUNCTION(BlueprintCallable, Category = "Trash")
 	void GrabObject();
 
+	UFUNCTION(BlueprintCallable, Category = "Trash")
 	void ReleaseObject();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+	void HurtThePlayer(float DamageTakenValue);
 
 	UStaticMeshComponent* HeldObject;
 
