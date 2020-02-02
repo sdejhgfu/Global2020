@@ -71,12 +71,12 @@ void ARecycleBin::NotifyActorBeginOverlap(AActor* OtherActor)
 			if (ThePlayer)
 			ThePlayer->HurtThePlayer(-TrashObject->GetDamageValue());
 			
-			ATrashPlayerState* TGS = Cast<ATrashPlayerState>(GetWorld()->GetGameState());
+			ATrashPlayerState* TPS = Cast<ATrashPlayerState>(ThePlayer->GetPlayerState());
 			//add score for the player upon getting one correct
-			if (TGS)
+			if (TPS)
 			{
-				TGS->AddScore(TrashObject->GetScoreValue());
-				UE_LOG(LogTemp, Warning, TEXT("Score Value now: %i"), TGS->GetTotalScore());
+				TPS->AddScore(TrashObject->GetScoreValue());
+				UE_LOG(LogTemp, Warning, TEXT("Score Value now: %i"), TPS->GetTotalScore());
 			}
 
 
