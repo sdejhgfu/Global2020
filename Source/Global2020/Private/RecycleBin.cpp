@@ -87,6 +87,14 @@ void ARecycleBin::NotifyActorBeginOverlap(AActor* OtherActor)
 			//add normal damage to player to hurt them.
 			if (ThePlayer)
 			ThePlayer->HurtThePlayer(TrashObject->GetDamageValue());
+
+			ATrashPlayerState* TPS = Cast<ATrashPlayerState>(ThePlayer->GetPlayerState());
+			//add score for the player upon getting one correct
+			if (TPS)
+			{
+				TPS->AddScore(-TrashObject->GetScoreValue());
+				UE_LOG(LogTemp, Warning, TEXT("Score Value now: %i"), TPS->GetTotalScore());
+			}
 			UE_LOG(LogTemp, Warning, TEXT("Damaged Player"));
 		}
 	}

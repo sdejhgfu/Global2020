@@ -169,5 +169,10 @@ void APlayerCharacter::ReleaseObject()
 
 }
 
+bool APlayerCharacter::HoldAnObject() const
+{
+	return bObjectInHand;
+}
+
 #pragma endregion
 

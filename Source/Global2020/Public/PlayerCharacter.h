@@ -50,6 +50,9 @@ protected:
 	UFUNCTION(BlueprintCallable, Category = "Trash")
 	void ReleaseObject();
 
+	UFUNCTION(BlueprintCallable, Category = "Trash")
+	bool HoldAnObject() const;
+
 
 	UStaticMeshComponent* HeldObject;
 
